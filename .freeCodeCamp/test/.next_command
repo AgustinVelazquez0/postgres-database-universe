@@ -53,3 +53,7 @@ git add universe.sql
 git commit -m "Add universe.sql"
 git add universe.sql
 git add .
+git commit -m "Add universe.sql"
+git push -u origin main
+pg_dump -cC --inserts -U freecodecamp universe > universe.sql
+git add .
