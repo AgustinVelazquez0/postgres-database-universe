@@ -66,3 +66,4 @@ git commit -m "Add universe.sql"
 git push
 VALUES
 psql --username=freecodecamp --dbname=postgres
+git add .
