@@ -44,6 +44,43 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
+-- Name: asteroid; Type: TABLE; Schema: public; Owner: freecodecamp
+--
+
+CREATE TABLE public.asteroid (
+    asteroid_id integer NOT NULL,
+    name character varying(255) NOT NULL,
+    planet_id integer,
+    size numeric,
+    is_spherical boolean
+);
+
+
+ALTER TABLE public.asteroid OWNER TO freecodecamp;
+
+--
+-- Name: asteroid_asteroid_id_seq; Type: SEQUENCE; Schema: public; Owner: freecodecamp
+--
+
+CREATE SEQUENCE public.asteroid_asteroid_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.asteroid_asteroid_id_seq OWNER TO freecodecamp;
+
+--
+-- Name: asteroid_asteroid_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: freecodecamp
+--
+
+ALTER SEQUENCE public.asteroid_asteroid_id_seq OWNED BY public.asteroid.asteroid_id;
+
+
+--
 -- Name: galaxy; Type: TABLE; Schema: public; Owner: freecodecamp
 --
 
@@ -52,7 +89,7 @@ CREATE TABLE public.galaxy (
     name character varying(100) NOT NULL,
     description text,
     has_life boolean,
-    age_in_millions_of_years numeric
+    age_in_millions_of_years numeric NOT NULL
 );
 
 
@@ -127,7 +164,7 @@ CREATE TABLE public.planet (
     star_id integer NOT NULL,
     type character varying(50),
     has_life boolean,
-    distance_from_earth integer
+    distance_from_earth bigint
 );
 
 
@@ -193,6 +230,13 @@ ALTER SEQUENCE public.star_star_id_seq OWNED BY public.star.star_id;
 
 
 --
+-- Name: asteroid asteroid_id; Type: DEFAULT; Schema: public; Owner: freecodecamp
+--
+
+ALTER TABLE ONLY public.asteroid ALTER COLUMN asteroid_id SET DEFAULT nextval('public.asteroid_asteroid_id_seq'::regclass);
+
+
+--
 -- Name: galaxy galaxy_id; Type: DEFAULT; Schema: public; Owner: freecodecamp
 --
 
@@ -221,6 +265,15 @@ ALTER TABLE ONLY public.star ALTER COLUMN star_id SET DEFAULT nextval('public.st
 
 
 --
+-- Data for Name: asteroid; Type: TABLE DATA; Schema: public; Owner: freecodecamp
+--
+
+INSERT INTO public.asteroid VALUES (1, 'Asteroid A', 1, 500, true);
+INSERT INTO public.asteroid VALUES (2, 'Asteroid B', 2, 300, false);
+INSERT INTO public.asteroid VALUES (3, 'Asteroid C', 3, 1500, true);
+
+
+--
 -- Data for Name: galaxy; Type: TABLE DATA; Schema: public; Owner: freecodecamp
 --
 
@@ -236,46 +289,108 @@ INSERT INTO public.galaxy VALUES (6, 'Sombrero', 'Edge-on spiral galaxy', false,
 -- Data for Name: moon; Type: TABLE DATA; Schema: public; Owner: freecodecamp
 --
 
+INSERT INTO public.moon VALUES (39, 'Moon', 1, 3474, true);
+INSERT INTO public.moon VALUES (40, 'Phobos', 2, 22, false);
+INSERT INTO public.moon VALUES (41, 'Deimos', 2, 12, false);
+INSERT INTO public.moon VALUES (42, 'Europa', 3, 3121, true);
+INSERT INTO public.moon VALUES (43, 'Io', 3, 3643, true);
+INSERT INTO public.moon VALUES (44, 'Ganymede', 3, 5268, true);
+INSERT INTO public.moon VALUES (45, 'Titan II', 4, 5150, true);
+INSERT INTO public.moon VALUES (46, 'Rhea', 4, 1528, true);
+INSERT INTO public.moon VALUES (47, 'Enceladus', 4, 504, true);
+INSERT INTO public.moon VALUES (48, 'Mimas', 4, 396, true);
+INSERT INTO public.moon VALUES (49, 'Callisto', 3, 4821, true);
+INSERT INTO public.moon VALUES (50, 'Triton', 6, 2706, true);
+INSERT INTO public.moon VALUES (51, 'Charon', 6, 1212, true);
+INSERT INTO public.moon VALUES (52, 'Titania', 7, 1578, true);
+INSERT INTO public.moon VALUES (53, 'Oberon', 7, 1523, true);
+INSERT INTO public.moon VALUES (54, 'Miranda', 7, 471, true);
+INSERT INTO public.moon VALUES (55, 'Umbriel', 7, 1178, true);
+INSERT INTO public.moon VALUES (56, 'Ariel', 7, 1157, true);
+INSERT INTO public.moon VALUES (57, 'Titan III', 8, 5150, true);
+INSERT INTO public.moon VALUES (58, 'Triton II', 6, 2706, true);
+INSERT INTO public.moon VALUES (59, 'Moon X', 1, 5000, true);
 
 
 --
 -- Data for Name: planet; Type: TABLE DATA; Schema: public; Owner: freecodecamp
 --
 
+INSERT INTO public.planet VALUES (1, 'Earth', 1, 'Rocky', true, 0);
+INSERT INTO public.planet VALUES (2, 'Mars', 1, 'Rocky', false, 225000000);
+INSERT INTO public.planet VALUES (3, 'Jupiter', 2, 'Gas Giant', false, 778500000);
+INSERT INTO public.planet VALUES (4, 'Saturn', 3, 'Gas Giant', false, 1433500000);
+INSERT INTO public.planet VALUES (5, 'Venus', 1, 'Rocky', false, 41000000);
+INSERT INTO public.planet VALUES (6, 'Mercury', 1, 'Rocky', false, 91900000);
+INSERT INTO public.planet VALUES (7, 'Neptune', 2, 'Ice Giant', false, 4495000000);
+INSERT INTO public.planet VALUES (8, 'Uranus', 2, 'Ice Giant', false, 4292000000);
+INSERT INTO public.planet VALUES (9, 'Gliese 581g', 3, 'Earth-like', true, 20);
+INSERT INTO public.planet VALUES (10, 'Kepler-22b', 4, 'Super-Earth', false, 600);
+INSERT INTO public.planet VALUES (11, 'HD 209458b', 4, 'Gas Giant', false, 1500);
+INSERT INTO public.planet VALUES (12, 'Kepler-452b', 5, 'Earth-like', true, 1400);
 
 
 --
 -- Data for Name: star; Type: TABLE DATA; Schema: public; Owner: freecodecamp
 --
 
+INSERT INTO public.star VALUES (1, 'Sun', 1, 1989000, true);
+INSERT INTO public.star VALUES (2, 'Alpha Centauri A', 1, 1412000, true);
+INSERT INTO public.star VALUES (3, 'Sirius A', 2, 2000000, true);
+INSERT INTO public.star VALUES (4, 'Betelgeuse', 3, 2900000, false);
+INSERT INTO public.star VALUES (5, 'Proxima Centauri', 1, 150000, true);
+INSERT INTO public.star VALUES (6, 'Rigel', 4, 1200000, false);
+
+
+--
+-- Name: asteroid_asteroid_id_seq; Type: SEQUENCE SET; Schema: public; Owner: freecodecamp
+--
+
+SELECT pg_catalog.setval('public.asteroid_asteroid_id_seq', 3, true);
 
 
 --
 -- Name: galaxy_galaxy_id_seq; Type: SEQUENCE SET; Schema: public; Owner: freecodecamp
 --
 
-SELECT pg_catalog.setval('public.galaxy_galaxy_id_seq', 6, true);
+SELECT pg_catalog.setval('public.galaxy_galaxy_id_seq', 7, true);
 
 
 --
 -- Name: moon_moon_id_seq; Type: SEQUENCE SET; Schema: public; Owner: freecodecamp
 --
 
-SELECT pg_catalog.setval('public.moon_moon_id_seq', 1, false);
+SELECT pg_catalog.setval('public.moon_moon_id_seq', 59, true);
 
 
 --
 -- Name: planet_planet_id_seq; Type: SEQUENCE SET; Schema: public; Owner: freecodecamp
 --
 
-SELECT pg_catalog.setval('public.planet_planet_id_seq', 1, false);
+SELECT pg_catalog.setval('public.planet_planet_id_seq', 12, true);
 
 
 --
 -- Name: star_star_id_seq; Type: SEQUENCE SET; Schema: public; Owner: freecodecamp
 --
 
-SELECT pg_catalog.setval('public.star_star_id_seq', 1, false);
+SELECT pg_catalog.setval('public.star_star_id_seq', 6, true);
+
+
+--
+-- Name: asteroid asteroid_name_key; Type: CONSTRAINT; Schema: public; Owner: freecodecamp
+--
+
+ALTER TABLE ONLY public.asteroid
+    ADD CONSTRAINT asteroid_name_key UNIQUE (name);
+
+
+--
+-- Name: asteroid asteroid_pkey; Type: CONSTRAINT; Schema: public; Owner: freecodecamp
+--
+
+ALTER TABLE ONLY public.asteroid
+    ADD CONSTRAINT asteroid_pkey PRIMARY KEY (asteroid_id);
 
 
 --
@@ -284,6 +399,14 @@ SELECT pg_catalog.setval('public.star_star_id_seq', 1, false);
 
 ALTER TABLE ONLY public.galaxy
     ADD CONSTRAINT galaxy_name_key UNIQUE (name);
+
+
+--
+-- Name: galaxy galaxy_name_unique; Type: CONSTRAINT; Schema: public; Owner: freecodecamp
+--
+
+ALTER TABLE ONLY public.galaxy
+    ADD CONSTRAINT galaxy_name_unique UNIQUE (name);
 
 
 --
@@ -340,6 +463,14 @@ ALTER TABLE ONLY public.star
 
 ALTER TABLE ONLY public.star
     ADD CONSTRAINT star_pkey PRIMARY KEY (star_id);
+
+
+--
+-- Name: asteroid asteroid_planet_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: freecodecamp
+--
+
+ALTER TABLE ONLY public.asteroid
+    ADD CONSTRAINT asteroid_planet_id_fkey FOREIGN KEY (planet_id) REFERENCES public.planet(planet_id);
 
 
 --

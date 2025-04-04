@@ -67,3 +67,5 @@ git push
 VALUES
 psql --username=freecodecamp --dbname=postgres
 git add .
+pg_dump -cC --inserts -U freecodecamp universe > universe.sql
+git add .
