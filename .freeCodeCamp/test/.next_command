@@ -57,3 +57,12 @@ git commit -m "Add universe.sql"
 git push -u origin main
 pg_dump -cC --inserts -U freecodecamp universe > universe.sql
 git add .
+git commit -m "fix universe.sql"
+git push origin main
+ls --color=auto
+git status
+git add universe.sql
+git commit -m "Add universe.sql"
+git push
+VALUES
+psql --username=freecodecamp --dbname=postgres
